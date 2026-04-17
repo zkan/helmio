@@ -10,5 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 0) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_17_030330) do
+  create_table "sites", force: :cascade do |t|
+    t.text "company_address"
+    t.string "company_name"
+    t.string "company_tax_id"
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.boolean "is_active"
+    t.string "name"
+    t.datetime "updated_at", null: false
+  end
 end

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  company_name: MyString
+  company_address: MyText
+  company_tax_id: MyString
+  is_active: false
+
+two:
+  name: MyString
+  description: MyText
+  company_name: MyString
+  company_address: MyText
+  company_tax_id: MyString
+  is_active: false
