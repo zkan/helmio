@@ -1,4 +1,42 @@
-<div>
-  <h1 class="text-3xl font-bold underline">Sites#index</h1>
-  <p>Find me in app/views/sites/index.html.erb</p>
+<div class="w-full">
+  <div class="mb-8">
+    <h1 class="text-4xl font-bold text-gray-900">Sites</h1>
+    <p class="mt-2 text-gray-600">Active sites</p>
+  </div>
+
+  <% if @sites.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @sites.each do |site| %>
+        <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-gray-100">
+          <div class="flex items-start justify-between mb-4">
+            <h2 class="text-xl font-semibold text-gray-900"><%= site.name %></h2>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+              Active
+            </span>
+          </div>
+
+          <% if site.description.present? %>
+            <p class="text-gray-600 text-sm mb-4 line-clamp-3"><%= site.description %></p>
+          <% end %>
+
+          <div class="border-t border-gray-100 pt-4 mt-4">
+            <h3 class="text-sm font-medium text-gray-900 mb-2">Company Info</h3>
+            <% if site.company_name.present? %>
+              <p class="text-sm text-gray-600"><span class="font-medium">Name:</span> <%= site.company_name %></p>
+            <% end %>
+            <% if site.company_address.present? %>
+              <p class="text-sm text-gray-600 mt-1"><span class="font-medium">Address:</span> <%= site.company_address %></p>
+            <% end %>
+            <% if site.company_tax_id.present? %>
+              <p class="text-sm text-gray-600 mt-1"><span class="font-medium">Tax ID:</span> <%= site.company_tax_id %></p>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center py-12 bg-gray-50 rounded-xl">
+      <p class="text-gray-500">No active sites found.</p>
+    </div>
+  <% end %>
 </div>

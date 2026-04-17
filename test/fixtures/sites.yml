@@ -1,17 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  description: MyText
-  company_name: MyString
-  company_address: MyText
-  company_tax_id: MyString
-  is_active: false
+active_site:
+  name: Active Corp
+  description: An active company
+  company_name: Active Corporation
+  company_address: 123 Active St
+  company_tax_id: 12-3456789
+  is_active: true
 
-two:
-  name: MyString
-  description: MyText
-  company_name: MyString
-  company_address: MyText
-  company_tax_id: MyString
+inactive_site:
+  name: Inactive Corp
+  description: An inactive company
+  company_name: Inactive Corporation
+  company_address: 456 Inactive St
+  company_tax_id: 98-7654321
   is_active: false
