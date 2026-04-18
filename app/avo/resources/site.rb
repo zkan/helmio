@@ -7,11 +7,11 @@ class Avo::Resources::Site < Avo::BaseResource
 
   def fields
     field :id, as: :id
+    field :name, as: :text
     field :company_address, as: :textarea
     field :company_name, as: :text
     field :company_tax_id, as: :text
     field :description, as: :textarea
     field :active, as: :boolean
-    field :name, as: :text
   end
 end
