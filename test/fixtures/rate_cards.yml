@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Standard Rates
+  site: active_site
+  effective_from: 2026-04-18
+  effective_to: 2027-04-18
+
+two:
+  name: Premium Rates
+  site: inactive_site
+  effective_from: 2026-04-18
+  effective_to: 2027-04-18

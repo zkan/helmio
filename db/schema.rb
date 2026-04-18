@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_18_093203) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_18_111158) do
   create_table "crews", force: :cascade do |t|
     t.boolean "billable"
     t.datetime "created_at", null: false
@@ -26,6 +26,27 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_18_093203) do
     t.index ["site_id"], name: "index_crews_on_site_id"
   end
 
+  create_table "rate_card_items", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "currency"
+    t.decimal "price"
+    t.integer "rate_card_id", null: false
+    t.string "role"
+    t.string "unit"
+    t.datetime "updated_at", null: false
+    t.index ["rate_card_id"], name: "index_rate_card_items_on_rate_card_id"
+  end
+
+  create_table "rate_cards", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.date "effective_from"
+    t.date "effective_to"
+    t.string "name"
+    t.integer "site_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_rate_cards_on_site_id"
+  end
+
   create_table "sites", force: :cascade do |t|
     t.boolean "active"
     t.text "company_address"
@@ -38,4 +59,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_18_093203) do
   end
 
   add_foreign_key "crews", "sites"
+  add_foreign_key "rate_card_items", "rate_cards"
+  add_foreign_key "rate_cards", "sites"
 end
