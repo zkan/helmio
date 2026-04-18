@@ -20,6 +20,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show empty state when no active sites" do
+    Crew.destroy_all
     Site.where(is_active: true).destroy_all
     get root_url
     assert_select "p", /No active sites found/

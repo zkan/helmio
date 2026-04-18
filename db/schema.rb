@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_17_030330) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_18_091223) do
+  create_table "crews", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.date "joined_date"
+    t.decimal "man_day_rate"
+    t.string "name"
+    t.string "name_th"
+    t.string "nickname"
+    t.string "phone"
+    t.integer "site_id"
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_crews_on_site_id"
+  end
+
   create_table "sites", force: :cascade do |t|
     t.text "company_address"
     t.string "company_name"
@@ -21,4 +35,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_17_030330) do
     t.string "name"
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "crews", "sites"
 end

@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: John Doe
+  name_th: จอห์น โด
+  nickname: Johnny
+  email: john@example.com
+  phone: "1234567890"
+  man_day_rate: 1500.00
+  joined_date: 2026-01-15
+  site: active_site
+
+two:
+  name: Jane Smith
+  name_th: เจน สมิธ
+  nickname: Janie
+  email: jane@example.com
+  phone: "0987654321"
+  man_day_rate: 1800.00
+  joined_date: 2026-02-20
+  site: inactive_site
