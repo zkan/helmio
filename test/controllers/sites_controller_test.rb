@@ -24,4 +24,11 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     get root_url
     assert_select "p", /No active sites found/
   end
+
+  test "should display sidebar with sites link" do
+    get root_url
+    assert_select "aside"
+    assert_select "aside a[href=?]", sites_path
+    assert_select "aside a", /Sites/
+  end
 end
