@@ -6,7 +6,7 @@ active_site:
   company_name: Active Corporation
   company_address: 123 Active St
   company_tax_id: 12-3456789
-  is_active: true
+  active: true
 
 inactive_site:
   name: Inactive Corp
@@ -14,4 +14,4 @@ inactive_site:
   company_name: Inactive Corporation
   company_address: 456 Inactive St
   company_tax_id: 98-7654321
-  is_active: false
+  active: false

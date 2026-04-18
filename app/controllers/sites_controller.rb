@@ -1,5 +1,5 @@
 class SitesController < ApplicationController
   def index
-    @sites = Site.where(is_active: true)
+    @sites = Site.where(active: true)
   end
 end

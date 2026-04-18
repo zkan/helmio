@@ -15,5 +15,6 @@ class Avo::Resources::Crew < Avo::BaseResource
     field :man_day_rate, as: :number
     field :joined_date, as: :date
     field :site, as: :belongs_to, optional: true
+    field :billable, as: :boolean
   end
 end

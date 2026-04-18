@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_18_091223) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_18_093203) do
   create_table "crews", force: :cascade do |t|
+    t.boolean "billable"
     t.datetime "created_at", null: false
     t.string "email"
     t.date "joined_date"
@@ -26,12 +27,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_18_091223) do
   end
 
   create_table "sites", force: :cascade do |t|
+    t.boolean "active"
     t.text "company_address"
     t.string "company_name"
     t.string "company_tax_id"
     t.datetime "created_at", null: false
     t.text "description"
-    t.boolean "is_active"
     t.string "name"
     t.datetime "updated_at", null: false
   end

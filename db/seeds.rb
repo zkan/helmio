@@ -13,7 +13,7 @@ Site.find_or_create_by!(name: "Acme Corp") do |site|
   site.company_name = "Acme Corporation"
   site.company_address = "123 Business St, San Francisco, CA 94105"
   site.company_tax_id = "12-3456789"
-  site.is_active = true
+  site.active = true
 end
 
 Site.find_or_create_by!(name: "TechStart Inc") do |site|
@@ -21,7 +21,7 @@ Site.find_or_create_by!(name: "TechStart Inc") do |site|
   site.company_name = "TechStart Inc."
   site.company_address = "456 Innovation Ave, Palo Alto, CA 94301"
   site.company_tax_id = "98-7654321"
-  site.is_active = true
+  site.active = true
 end
 
 Site.find_or_create_by!(name: "Green Energy Co") do |site|
@@ -29,7 +29,7 @@ Site.find_or_create_by!(name: "Green Energy Co") do |site|
   site.company_name = "Green Energy Company"
   site.company_address = "789 Eco Lane, Portland, OR 97201"
   site.company_tax_id = "55-444333222"
-  site.is_active = true
+  site.active = true
 end
 
 Site.find_or_create_by!(name: "Inactive Corp") do |site|
@@ -37,5 +37,5 @@ Site.find_or_create_by!(name: "Inactive Corp") do |site|
   site.company_name = "Inactive Corporation"
   site.company_address = "123 Old St, Boston, MA 02101"
   site.company_tax_id = "11-1111111"
-  site.is_active = false
+  site.active = false
 end
