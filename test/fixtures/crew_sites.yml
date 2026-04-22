@@ -1,0 +1,7 @@
+one_active:
+  crew: one
+  site: active_site
+
+two_inactive:
+  crew: two
+  site: inactive_site

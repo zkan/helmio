@@ -10,8 +10,8 @@ class CrewTest < ActiveSupport::TestCase
     assert @crew.valid?
   end
 
-  test "should belong to site" do
-    assert_equal @site, @crew.site
+  test "should have sites through crew_sites" do
+    assert_includes @crew.sites, @site
   end
 
   test "should have name" do

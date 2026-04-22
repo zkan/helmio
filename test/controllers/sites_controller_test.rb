@@ -20,6 +20,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show empty state when no active sites" do
+    CrewSite.destroy_all
     Crew.destroy_all
     RateCard.destroy_all
     Site.where(active: true).destroy_all

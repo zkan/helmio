@@ -1,3 +1,4 @@
 class Crew < ApplicationRecord
-  belongs_to :site, optional: true
+  has_many :crew_sites
+  has_many :sites, through: :crew_sites
 end

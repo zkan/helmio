@@ -8,7 +8,6 @@ one:
   phone: "1234567890"
   man_day_rate: 1500.00
   joined_date: 2026-01-15
-  site: active_site
   billable: true
 
 two:
@@ -19,5 +18,4 @@ two:
   phone: "0987654321"
   man_day_rate: 1800.00
   joined_date: 2026-02-20
-  site: inactive_site
   billable: false

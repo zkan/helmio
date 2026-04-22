@@ -13,5 +13,6 @@ class Avo::Resources::Site < Avo::BaseResource
     field :company_tax_id, as: :text
     field :description, as: :textarea
     field :active, as: :boolean
+    field :crews, as: :has_many, through: :crew_sites
   end
 end
