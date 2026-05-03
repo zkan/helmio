@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_22_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_23_000000) do
   create_table "crew_rate_card_items", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "crew_id", null: false
@@ -32,7 +32,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_22_000000) do
   end
 
   create_table "crews", force: :cascade do |t|
-    t.boolean "billable"
     t.datetime "created_at", null: false
     t.string "email"
     t.date "joined_date"

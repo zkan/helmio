@@ -41,12 +41,4 @@ class CrewTest < ActiveSupport::TestCase
   test "should have joined_date" do
     assert_equal Date.new(2026, 1, 15), @crew.joined_date
   end
-
-  test "should have billable" do
-    assert_equal true, @crew.billable
-  end
-
-  test "should have non_billable crew" do
-    assert_equal false, crews(:two).billable
-  end
 end

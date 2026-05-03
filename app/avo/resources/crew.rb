@@ -15,6 +15,5 @@ class Avo::Resources::Crew < Avo::BaseResource
     field :man_day_rate, as: :number
     field :joined_date, as: :date
     field :sites, as: :has_many, through: :crew_sites
-    field :billable, as: :boolean
   end
 end
