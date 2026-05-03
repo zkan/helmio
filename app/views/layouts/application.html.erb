@@ -30,6 +30,9 @@
           <h1 class="text-2xl font-bold">Helmio</h1>
         </div>
         <nav class="mt-6">
+          <%= link_to dashboard_path, class: "flex items-center px-6 py-3 hover:bg-gray-800#{(controller_name == "dashboard") ? " bg-gray-800" : ""}" do %>
+            <span class="text-lg">Dashboard</span>
+          <% end %>
           <%= link_to sites_path, class: "flex items-center px-6 py-3 hover:bg-gray-800#{(controller_name == "sites" && action_name == "index") ? " bg-gray-800" : ""}" do %>
             <span class="text-lg">Sites</span>
           <% end %>
