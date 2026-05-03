@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_21_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_22_000000) do
+  create_table "crew_rate_card_items", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "crew_id", null: false
+    t.integer "rate_card_item_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["crew_id", "rate_card_item_id"], name: "index_crew_rate_card_items_on_crew_id_and_rate_card_item_id", unique: true
+    t.index ["crew_id"], name: "index_crew_rate_card_items_on_crew_id"
+    t.index ["rate_card_item_id"], name: "index_crew_rate_card_items_on_rate_card_item_id"
+  end
+
   create_table "crew_sites", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "crew_id", null: false
@@ -68,6 +78,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_000000) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "crew_rate_card_items", "crews"
+  add_foreign_key "crew_rate_card_items", "rate_card_items"
   add_foreign_key "crew_sites", "crews"
   add_foreign_key "crew_sites", "sites"
   add_foreign_key "crews", "sites"
