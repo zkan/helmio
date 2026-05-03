@@ -7,6 +7,6 @@ class CreateCrewRateCardItems < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
-    add_index :crew_rate_card_items, [:crew_id, :rate_card_item_id], unique: true
+    add_index :crew_rate_card_items, [ :crew_id, :rate_card_item_id ], unique: true
   end
 end
