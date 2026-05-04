@@ -1,7 +1,7 @@
 <div class="p-6">
   <h1 class="text-2xl font-bold mb-6">Dashboard</h1>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
     <div class="bg-white p-6 rounded-lg shadow">
       <p class="text-sm text-gray-500">Monthly Gross Profit</p>
       <p class="text-3xl font-bold text-green-600"><%= number_to_currency(@totals[:gross_profit], unit: "THB", format: "%u %n", precision: 0) %></p>
@@ -13,25 +13,35 @@
     </div>
 
     <div class="bg-white p-6 rounded-lg shadow">
+      <p class="text-sm text-gray-500">Monthly Delivery Cost</p>
+      <p class="text-3xl font-bold text-orange-600"><%= number_to_currency(@totals[:delivery_cost], unit: "THB", format: "%u %n", precision: 0) %></p>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow">
       <p class="text-sm text-gray-500">Monthly Margin</p>
       <p class="text-3xl font-bold text-purple-600"><%= number_to_percentage(@totals[:margin], precision: 1) %></p>
     </div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
     <div class="bg-white p-6 rounded-lg shadow">
       <p class="text-sm text-gray-500">Yearly Gross Profit</p>
-      <p class="text-2xl font-bold text-green-600"><%= number_to_currency(@totals[:yearly_gross_profit], unit: "THB", format: "%u %n", precision: 0) %></p>
+      <p class="text-2xl font-bold text-green-600"><%= number_to_currency(@totals[:gross_profit] * 12, unit: "THB", format: "%u %n", precision: 0) %></p>
     </div>
 
     <div class="bg-white p-6 rounded-lg shadow">
       <p class="text-sm text-gray-500">Yearly Revenue</p>
-      <p class="text-2xl font-bold text-blue-600"><%= number_to_currency(@totals[:yearly_revenue], unit: "THB", format: "%u %n", precision: 0) %></p>
+      <p class="text-2xl font-bold text-blue-600"><%= number_to_currency(@totals[:revenue] * 12, unit: "THB", format: "%u %n", precision: 0) %></p>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow">
+      <p class="text-sm text-gray-500">Yearly Delivery Cost</p>
+      <p class="text-2xl font-bold text-orange-600"><%= number_to_currency(@totals[:delivery_cost] * 12, unit: "THB", format: "%u %n", precision: 0) %></p>
     </div>
 
     <div class="bg-white p-6 rounded-lg shadow">
       <p class="text-sm text-gray-500">Yearly Margin</p>
-      <p class="text-2xl font-bold text-purple-600"><%= number_to_percentage(@totals[:yearly_margin], precision: 1) %></p>
+      <p class="text-2xl font-bold text-purple-600"><%= number_to_percentage(@totals[:margin], precision: 1) %></p>
     </div>
   </div>
 
@@ -40,7 +50,7 @@
     <% @sites.each do |site_data| %>
       <div class="bg-white p-6 rounded-lg shadow">
         <h3 class="text-lg font-semibold mb-4"><%= site_data[:site].name %></h3>
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-4 gap-4">
           <div>
             <p class="text-sm text-gray-500">Monthly Gross Profit</p>
             <p class="text-xl font-bold text-green-600"><%= number_to_currency(site_data[:gross_profit], unit: "THB", format: "%u %n", precision: 0) %></p>
@@ -48,6 +58,10 @@
           <div>
             <p class="text-sm text-gray-500">Monthly Revenue</p>
             <p class="text-xl font-bold text-blue-600"><%= number_to_currency(site_data[:revenue], unit: "THB", format: "%u %n", precision: 0) %></p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Monthly Delivery Cost</p>
+            <p class="text-xl font-bold text-orange-600"><%= number_to_currency(site_data[:delivery_cost], unit: "THB", format: "%u %n", precision: 0) %></p>
           </div>
           <div>
             <p class="text-sm text-gray-500">Monthly Margin</p>

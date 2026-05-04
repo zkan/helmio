@@ -17,12 +17,9 @@ class DashboardMetricsTest < ActionView::TestCase
     assert site_data.key?(:site)
     assert site_data.key?(:crew_sites)
     assert site_data.key?(:revenue)
-    assert site_data.key?(:crew_cost)
+    assert site_data.key?(:delivery_cost)
     assert site_data.key?(:gross_profit)
     assert site_data.key?(:margin)
-    assert site_data.key?(:yearly_revenue)
-    assert site_data.key?(:yearly_gross_profit)
-    assert site_data.key?(:yearly_margin)
   end
 
   test "returns crew_sites with estimate_days" do
@@ -39,12 +36,9 @@ class DashboardMetricsTest < ActionView::TestCase
     result = compute_metrics
 
     assert result[:totals].key?(:revenue)
-    assert result[:totals].key?(:crew_cost)
+    assert result[:totals].key?(:delivery_cost)
     assert result[:totals].key?(:gross_profit)
     assert result[:totals].key?(:margin)
-    assert result[:totals].key?(:yearly_revenue)
-    assert result[:totals].key?(:yearly_gross_profit)
-    assert result[:totals].key?(:yearly_margin)
   end
 
   test "calculates revenue filtering by site - only uses rate_card_items for that site" do
@@ -73,30 +67,22 @@ class DashboardMetricsTest < ActionView::TestCase
     assert_equal 0, other_site_revenue.to_d
   end
 
-  test "calculates crew_cost correctly" do
+  test "calculates delivery_cost correctly as man_day_rate * estimate_days" do
     result = compute_metrics
     site_data = result[:sites].first
 
     expected = crew_sites(:one_active).crew.man_day_rate * crew_sites(:one_active).estimate_days +
                crew_sites(:two_active).crew.man_day_rate * crew_sites(:two_active).estimate_days
 
-    assert_equal expected.to_d, site_data[:crew_cost]
+    assert_equal expected.to_d, site_data[:delivery_cost]
   end
 
   test "calculates gross_profit correctly" do
     result = compute_metrics
     site_data = result[:sites].first
 
-    expected = site_data[:revenue] - site_data[:crew_cost]
+    expected = site_data[:revenue] - site_data[:delivery_cost]
     assert_equal expected, site_data[:gross_profit]
-  end
-
-  test "calculates yearly_revenue from monthly * 12" do
-    result = compute_metrics
-    site_data = result[:sites].first
-
-    expected = site_data[:revenue] * 12
-    assert_equal expected, site_data[:yearly_revenue]
   end
 
   test "calculates margin correctly" do
@@ -112,13 +98,6 @@ class DashboardMetricsTest < ActionView::TestCase
 
     expected = result[:sites].sum { |s| s[:revenue] }
     assert_equal expected, result[:totals][:revenue]
-  end
-
-  test "totals yearly equals sum of all sites yearly" do
-    result = compute_metrics
-
-    expected = result[:sites].sum { |s| s[:yearly_revenue] }
-    assert_equal expected, result[:totals][:yearly_revenue]
   end
 
   test "different sites have independent revenues" do
@@ -146,7 +125,7 @@ class DashboardMetricsTest < ActionView::TestCase
     result = compute_metrics
 
     assert_equal 0, result[:sites].first[:revenue]
-    assert_equal 0, result[:sites].first[:crew_cost]
+    assert_equal 0, result[:sites].first[:delivery_cost]
   end
 
   test "handles nil estimate_days" do
@@ -156,5 +135,22 @@ class DashboardMetricsTest < ActionView::TestCase
     result = compute_metrics
 
     assert_equal 0, result[:sites].first[:revenue]
+  end
+
+  test "calculates delivery_cost as sum of man_day_rate * estimate_days" do
+    result = compute_metrics
+    site_data = result[:sites].first
+
+    expected = crew_sites(:one_active).crew.man_day_rate * crew_sites(:one_active).estimate_days +
+               crew_sites(:two_active).crew.man_day_rate * crew_sites(:two_active).estimate_days
+
+    assert_equal expected.to_d, site_data[:delivery_cost]
+  end
+
+  test "totals delivery_cost equals sum of all sites delivery_cost" do
+    result = compute_metrics
+
+    expected = result[:sites].sum { |s| s[:delivery_cost] }
+    assert_equal expected, result[:totals][:delivery_cost]
   end
 end
