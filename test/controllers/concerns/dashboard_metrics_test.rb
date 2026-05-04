@@ -66,7 +66,8 @@ class DashboardMetricsTest < ActionView::TestCase
     result = compute_metrics
     site_data = result[:sites].first
 
-    expected = @crew.man_day_rate * @crew_site.estimate_days
+    expected = crew_sites(:one_active).crew.man_day_rate * crew_sites(:one_active).estimate_days +
+               crew_sites(:two_active).crew.man_day_rate * crew_sites(:two_active).estimate_days
 
     assert_equal expected.to_d, site_data[:crew_cost]
   end
@@ -129,8 +130,7 @@ class DashboardMetricsTest < ActionView::TestCase
   end
 
   test "handles zero estimate_days" do
-    @crew_site.estimate_days = 0
-    @crew_site.save!
+    CrewSite.where(site: @crew_site.site).update_all(estimate_days: 0)
 
     result = compute_metrics
 
