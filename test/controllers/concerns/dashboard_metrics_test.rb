@@ -15,6 +15,7 @@ class DashboardMetricsTest < ActionView::TestCase
     site_data = result[:sites].first
 
     assert site_data.key?(:site)
+    assert site_data.key?(:crew_sites)
     assert site_data.key?(:revenue)
     assert site_data.key?(:crew_cost)
     assert site_data.key?(:gross_profit)
@@ -22,6 +23,16 @@ class DashboardMetricsTest < ActionView::TestCase
     assert site_data.key?(:yearly_revenue)
     assert site_data.key?(:yearly_gross_profit)
     assert site_data.key?(:yearly_margin)
+  end
+
+  test "returns crew_sites with estimate_days" do
+    result = compute_metrics
+    site_data = result[:sites].first
+
+    assert site_data[:crew_sites].present?
+    crew_site = site_data[:crew_sites].first
+    assert crew_site.respond_to?(:estimate_days)
+    assert_equal 20, crew_site.estimate_days
   end
 
   test "returns totals with required keys" do

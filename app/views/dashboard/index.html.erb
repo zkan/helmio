@@ -54,10 +54,10 @@
             <p class="text-xl font-bold text-purple-600"><%= number_to_percentage(site_data[:margin], precision: 1) %></p>
           </div>
         </div>
-        <% if site_data[:crews].any? %>
+        <% if site_data[:crew_sites].any? %>
           <div class="mt-4">
-            <button type="button" onclick="this.nextElementSibling.classList.toggle('hidden'); this.textContent = this.nextElementSibling.classList.contains('hidden') ? 'Show crews (<%= site_data[:crews].size %>)' : 'Hide crews'" class="text-sm text-blue-600 hover:text-blue-800 underline">
-              Show crews (<%= site_data[:crews].size %>)
+            <button type="button" onclick="this.nextElementSibling.classList.toggle('hidden'); this.textContent = this.nextElementSibling.classList.contains('hidden') ? 'Show crews (<%= site_data[:crew_sites].size %>)' : 'Hide crews'" class="text-sm text-blue-600 hover:text-blue-800 underline">
+              Show crews (<%= site_data[:crew_sites].size %>)
             </button>
             <div class="hidden mt-2 p-3 bg-gray-50 rounded border">
               <table class="text-sm w-full">
@@ -66,14 +66,16 @@
                     <th class="pb-2">Crew</th>
                     <th class="pb-2">Man Day Rate</th>
                     <th class="pb-2">Rate Card Price</th>
+                    <th class="pb-2">Estimate Days</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <% site_data[:crews].sort_by(&:man_day_rate).reverse.each do |crew| %>
+                  <% site_data[:crew_sites].sort_by { |cs| cs.crew.man_day_rate }.reverse.each do |cs| %>
                     <tr>
-                      <td class="py-1"><%= crew.name %></td>
-                      <td class="py-1"><%= number_to_currency(crew.man_day_rate, unit: "THB", format: "%u %n", precision: 0) %></td>
-                      <td class="py-1"><% rate_item = crew.crew_rate_card_items.find { |crc| crc.rate_card_item.rate_card.site == site_data[:site] }&.rate_card_item %><%= rate_item ? number_to_currency(rate_item.price, unit: "THB", format: "%u %n", precision: 0) : '-' %></td>
+                      <td class="py-1"><%= cs.crew.name %></td>
+                      <td class="py-1"><%= number_to_currency(cs.crew.man_day_rate, unit: "THB", format: "%u %n", precision: 0) %></td>
+                      <td class="py-1"><% rate_item = cs.crew.crew_rate_card_items.find { |crc| crc.rate_card_item.rate_card.site == site_data[:site] }&.rate_card_item %><%= rate_item ? number_to_currency(rate_item.price, unit: "THB", format: "%u %n", precision: 0) : '-' %></td>
+                      <td class="py-1"><%= cs.estimate_days.to_i %></td>
                     </tr>
                   <% end %>
                 </tbody>

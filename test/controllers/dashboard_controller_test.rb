@@ -90,7 +90,13 @@ test "should display margin" do
       assert_select "th", /Crew/
       assert_select "th", /Man Day Rate/
       assert_select "th", /Rate Card Price/
+      assert_select "th", /Estimate Days/
     end
+  end
+
+  test "should display estimate days value for each crew" do
+    get dashboard_url
+    assert_select "tbody td", /20/
   end
 
   test "should sort crews by man day rate descending" do
