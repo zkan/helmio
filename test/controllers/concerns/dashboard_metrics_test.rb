@@ -19,7 +19,6 @@ class DashboardMetricsTest < ActionView::TestCase
     assert site_data.key?(:crew_cost)
     assert site_data.key?(:gross_profit)
     assert site_data.key?(:margin)
-    assert site_data.key?(:periods)
     assert site_data.key?(:yearly_revenue)
     assert site_data.key?(:yearly_gross_profit)
     assert site_data.key?(:yearly_margin)
@@ -32,7 +31,6 @@ class DashboardMetricsTest < ActionView::TestCase
     assert result[:totals].key?(:crew_cost)
     assert result[:totals].key?(:gross_profit)
     assert result[:totals].key?(:margin)
-    assert result[:totals].key?(:by_period)
     assert result[:totals].key?(:yearly_revenue)
     assert result[:totals].key?(:yearly_gross_profit)
     assert result[:totals].key?(:yearly_margin)
@@ -46,9 +44,9 @@ class DashboardMetricsTest < ActionView::TestCase
     site_rate_items = @crew.crew_rate_card_items.select do |crc|
       crc.rate_card_item.rate_card.site == site
     end
-    expected_monthly = site_rate_items.sum { |crc| crc.rate_card_item.price } * @crew_site.estimate_days
+    expected = site_rate_items.sum { |crc| crc.rate_card_item.price } * @crew_site.estimate_days
 
-    assert_equal expected_monthly.to_d, site_data[:periods].first[:revenue]
+    assert_equal expected.to_d, site_data[:revenue]
   end
 
   test "does not include rate_card_items from other sites" do
@@ -68,8 +66,7 @@ class DashboardMetricsTest < ActionView::TestCase
     result = compute_metrics
     site_data = result[:sites].first
 
-    monthly_crew_cost = @crew.man_day_rate * @crew_site.estimate_days
-    expected = monthly_crew_cost * 12
+    expected = @crew.man_day_rate * @crew_site.estimate_days
 
     assert_equal expected.to_d, site_data[:crew_cost]
   end
@@ -98,44 +95,11 @@ class DashboardMetricsTest < ActionView::TestCase
     assert_in_delta expected, site_data[:margin], 0.01
   end
 
-  test "returns 12 monthly periods for each site" do
+  test "totals equal sum of all sites" do
     result = compute_metrics
 
-    assert_equal 12, result[:sites].first[:periods].size
-  end
-
-  test "periods have required keys" do
-    result = compute_metrics
-    period = result[:sites].first[:periods].first
-
-    assert period.key?(:month)
-    assert period.key?(:revenue)
-    assert period.key?(:crew_cost)
-    assert period.key?(:gross_profit)
-    assert period.key?(:margin)
-  end
-
-  test "each period calculates monthly value for that site only" do
-    result = compute_metrics
-    site_data = result[:sites].first
-    site = site_data[:site]
-
-    site_rate_items = @crew.crew_rate_card_items.select do |crc|
-      crc.rate_card_item.rate_card.site == site
-    end
-    expected_revenue = site_rate_items.sum { |crc| crc.rate_card_item.price } * @crew_site.estimate_days
-    expected_crew_cost = @crew.man_day_rate * @crew_site.estimate_days
-
-    period = site_data[:periods].first
-    assert_equal expected_revenue.to_d, period[:revenue]
-    assert_equal expected_crew_cost.to_d, period[:crew_cost]
-  end
-
-  test "totals equal sum of all sites monthly" do
-    result = compute_metrics
-
-    expected_revenue = result[:sites].sum { |s| s[:revenue] }
-    assert_equal expected_revenue, result[:totals][:revenue]
+    expected = result[:sites].sum { |s| s[:revenue] }
+    assert_equal expected, result[:totals][:revenue]
   end
 
   test "totals yearly equals sum of all sites yearly" do
@@ -145,22 +109,13 @@ class DashboardMetricsTest < ActionView::TestCase
     assert_equal expected, result[:totals][:yearly_revenue]
   end
 
-  test "by_period totals match individual periods" do
-    result = compute_metrics
-    periods_sum = result[:totals][:by_period].sum { |p| p[:revenue] }
-
-    assert_equal periods_sum, result[:totals][:revenue]
-  end
-
   test "different sites have independent revenues" do
     result = compute_metrics
 
     sites = result[:sites]
     return if sites.size < 2
 
-    site_names = sites.map { |s| s[:site].name }
     revenues = sites.map { |s| s[:revenue] }
-
     assert revenues.uniq.size > 1, "Sites should have different revenues"
   end
 
