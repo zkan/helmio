@@ -1,7 +1,9 @@
 one_active:
   crew: one
   site: active_site
+  estimate_days: 20
 
 two_inactive:
   crew: two
   site: inactive_site
+  estimate_days: 15

@@ -4,26 +4,26 @@
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
     <div class="bg-white p-6 rounded-lg shadow">
       <p class="text-sm text-gray-500">Total Gross Profit</p>
-      <p class="text-3xl font-bold text-green-600"><%= number_to_currency(@total_gross_profit, unit: "THB", format: "%u %n", precision: 0) %></p>
+      <p class="text-3xl font-bold text-green-600"><%= number_to_currency(@totals[:gross_profit], unit: "THB", format: "%u %n", precision: 0) %></p>
     </div>
 
     <div class="bg-white p-6 rounded-lg shadow">
       <p class="text-sm text-gray-500">Total Revenue</p>
-      <p class="text-3xl font-bold text-blue-600"><%= number_to_currency(@total_revenue, unit: "THB", format: "%u %n", precision: 0) %></p>
+      <p class="text-3xl font-bold text-blue-600"><%= number_to_currency(@totals[:revenue], unit: "THB", format: "%u %n", precision: 0) %></p>
     </div>
 
     <div class="bg-white p-6 rounded-lg shadow">
       <p class="text-sm text-gray-500">Total Margin</p>
-      <p class="text-3xl font-bold text-purple-600"><%= number_to_percentage(@total_margin, precision: 1) %></p>
+      <p class="text-3xl font-bold text-purple-600"><%= number_to_percentage(@totals[:margin], precision: 1) %></p>
     </div>
   </div>
 
   <h2 class="text-xl font-bold mb-4">By Site</h2>
-  <div class="grid grid-cols-1 gap-4">
+  <div class="grid grid-cols-1 gap-6">
     <% @sites.each do |site_data| %>
       <div class="bg-white p-6 rounded-lg shadow">
         <h3 class="text-lg font-semibold mb-4"><%= site_data[:site].name %></h3>
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-3 gap-4 mb-6">
           <div>
             <p class="text-sm text-gray-500">Gross Profit</p>
             <p class="text-xl font-bold text-green-600"><%= number_to_currency(site_data[:gross_profit], unit: "THB", format: "%u %n", precision: 0) %></p>
@@ -36,6 +36,30 @@
             <p class="text-sm text-gray-500">Margin</p>
             <p class="text-xl font-bold text-purple-600"><%= number_to_percentage(site_data[:margin], precision: 1) %></p>
           </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="text-left text-gray-500 border-b">
+                <th class="pb-2">Month</th>
+                <th class="pb-2 text-right">Revenue</th>
+                <th class="pb-2 text-right">Crew Cost</th>
+                <th class="pb-2 text-right">Gross Profit</th>
+                <th class="pb-2 text-right">Margin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% site_data[:periods].each do |period| %>
+                <tr class="border-b">
+                  <td class="py-2"><%= period[:month] %></td>
+                  <td class="py-2 text-right"><%= number_to_currency(period[:revenue], unit: "THB", format: "%u %n", precision: 0) %></td>
+                  <td class="py-2 text-right"><%= number_to_currency(period[:crew_cost], unit: "THB", format: "%u %n", precision: 0) %></td>
+                  <td class="py-2 text-right"><%= number_to_currency(period[:gross_profit], unit: "THB", format: "%u %n", precision: 0) %></td>
+                  <td class="py-2 text-right"><%= number_to_percentage(period[:margin], precision: 1) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
       </div>
     <% end %>

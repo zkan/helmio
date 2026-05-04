@@ -66,7 +66,7 @@ test "should display margin" do
 
   test "should have cards for site breakdown" do
     get dashboard_url
-    assert_select ".grid.grid-cols-1.gap-4"
+    assert_select ".grid.grid-cols-1.gap-6"
   end
 
   test "should display dashboard link in sidebar" do
