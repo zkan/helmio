@@ -29,17 +29,17 @@ test "should display margin" do
 
   test "should display total gross profit" do
     get dashboard_url
-    assert_select "p", /Total Gross Profit/
+    assert_select "p", /Total Yearly Gross Profit/
   end
 
   test "should display total revenue" do
     get dashboard_url
-    assert_select "p", /Total Revenue/
+    assert_select "p", /Total Yearly Revenue/
   end
 
   test "should display total margin" do
     get dashboard_url
-    assert_select "p", /Total Margin/
+    assert_select "p", /Total Yearly Margin/
   end
 
   test "should display THB currency" do
