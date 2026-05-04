@@ -12,7 +12,7 @@ class Avo::Resources::Crew < Avo::BaseResource
     field :nickname, as: :text
     field :email, as: :text
     field :phone, as: :text
-    field :man_day_rate, as: :number
+    field :man_day_rate, as: :number, hide_on: :index
     field :joined_date, as: :date
     field :sites, as: :has_many, through: :crew_sites
   end
