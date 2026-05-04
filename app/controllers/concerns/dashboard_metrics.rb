@@ -26,6 +26,7 @@ module DashboardMetrics
 
       {
         site: site,
+        crews: crew_site_items.map { |cs| cs.crew }.uniq,
         revenue: month_revenue,
         crew_cost: month_crew_cost,
         gross_profit: gross_profit,

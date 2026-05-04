@@ -7,3 +7,8 @@ two_inactive:
   crew: two
   site: inactive_site
   estimate_days: 15
+
+two_active:
+  crew: two
+  site: active_site
+  estimate_days: 15

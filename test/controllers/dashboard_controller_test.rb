@@ -64,6 +64,43 @@ test "should display margin" do
     assert_select "h3"
   end
 
+  test "should display crew toggle button" do
+    get dashboard_url
+    assert_select "button", /Show crews/
+  end
+
+  test "should display crew name in toggle" do
+    get dashboard_url
+    assert_select "tbody td", /John Doe/
+  end
+
+  test "should display crew man day rate" do
+    get dashboard_url
+    assert_select "tbody td", /1,500/
+  end
+
+  test "should display crew rate card item" do
+    get dashboard_url
+    assert_match(/THB/, response.body)
+  end
+
+  test "should display crew information in table format" do
+    get dashboard_url
+    assert_select "table" do
+      assert_select "th", /Crew/
+      assert_select "th", /Man Day Rate/
+      assert_select "th", /Rate Card Price/
+    end
+  end
+
+  test "should sort crews by man day rate descending" do
+    get dashboard_url
+    html = response.body
+    jane_idx = html.index("Jane Smith")
+    john_idx = html.index("John Doe")
+    assert jane_idx < john_idx, "Expected Jane Smith (1800) to appear before John Doe (1500)"
+  end
+
   test "should have cards for site breakdown" do
     get dashboard_url
     assert_select ".grid.grid-cols-1.gap-6"
