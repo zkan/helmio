@@ -41,9 +41,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_04_094432) do
     t.string "name_th"
     t.string "nickname"
     t.string "phone"
-    t.integer "site_id"
     t.datetime "updated_at", null: false
-    t.index ["site_id"], name: "index_crews_on_site_id"
   end
 
   create_table "rate_card_items", force: :cascade do |t|
@@ -82,7 +80,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_04_094432) do
   add_foreign_key "crew_rate_card_items", "rate_card_items"
   add_foreign_key "crew_sites", "crews"
   add_foreign_key "crew_sites", "sites"
-  add_foreign_key "crews", "sites"
   add_foreign_key "rate_card_items", "rate_cards"
   add_foreign_key "rate_cards", "sites"
 end
